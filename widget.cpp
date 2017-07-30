@@ -1,17 +1,28 @@
+/* Progect:
+*  We have one file with users' data, it must be presented, as not editable table.
+*  \author ais
+*  \version 2.0
+*  \date 25.07.2017
+*  \date Last Change: 31.07.2017
+*/
 #include "widget.h"
 #include <QObject>
 #include <QListView>
 #include <QFile>
 #include <QString>
-
+//конструктор
+//constructor
 Widget::Widget(QMainWindow *parent)
     : QMainWindow(parent)
 {
     ui = new QDeclarativeView;
+    //устанавливаем источник для ui
+    //setting Source for ui
     ui->setSource(QUrl("../test3/main.qml"));
+    //устанавливаем ui в качестве основного виджета
+    //set ui as main Widget
     setCentralWidget(ui);
     ui->setResizeMode(QDeclarativeView::SizeRootObjectToView);
-    QObject *Root = ui->rootObject();
 
     QVariant msg1;
     QVariant msg2;
@@ -24,6 +35,8 @@ Widget::Widget(QMainWindow *parent)
     {
         QString dop;
         QString dop2;
+        //читаем из фаила
+        //start file reading
         while(!f.atEnd())
         {
             f.readLine(buf,128);
@@ -32,10 +45,14 @@ Widget::Widget(QMainWindow *parent)
             //пропускаем пустые строки
             //ignore empty strings
             if(dop.length()==0)continue;
+            //распределяем данные по столбцам
+            //sorting data in colomns
             msg1=QVariant(dop.section("; ",0,0));
             msg2=QVariant(dop.section("; ",1,1));
             dop2=dop.section("; ",2,2);
             msg3=QVariant(dop2.section(";",0,0));
+            //отправляем данные в ListModel в таблицу, используя qml функцию
+            // sending data to tabel, invoked QML method
             QMetaObject::invokeMethod(Root, "addElement",
                     Q_ARG(QVariant, msg1),Q_ARG(QVariant, msg2),
                     Q_ARG(QVariant, msg3));
@@ -51,7 +68,8 @@ Widget::Widget(QMainWindow *parent)
     }
     f.close();
 }
-
+//диструктор
+//destructor
 Widget::~Widget()
 {
     delete ui;
