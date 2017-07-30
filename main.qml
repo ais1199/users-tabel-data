@@ -5,173 +5,81 @@ Rectangle {
     width: 300
     height: 245
     anchors.fill: parent
+
     ListModel {
             id: dataModel
 
             ListElement {
-                type: "bird"
-                text: "penguin"
-            }
-            ListElement {
-                type: "bird"
-                text: "raven"
-            }
-            ListElement {
-                type: "bird"
-                text: "lizard"
-            }
-            ListElement {
-                type: "bird"
-                text: "turtle"
-            }
-            ListElement {
-                type: "bird"
-                text: "crocodile"
-            }
-            ListElement {
-                type: "bird"
-                text: "crocodile"
-            }
-            ListElement {
-                type: "bird"
-                text: "penguin"
-            }
-            ListElement {
-                type: "bird"
-                text: "raven"
-            }
-            ListElement {
-                type: "bird"
-                text: "lizard"
-            }
-            ListElement {
-                type: "bird"
-                text: "turtle"
-            }
-            ListElement {
-                type: "bird"
-                text: "crocodile"
-            }
-            ListElement {
-                type: "bird"
-                text: "crocodile"
-            }
-            ListElement {
-                type: "bird"
-                text: "crocodile"
-            }
-            ListElement {
-                type: "bird"
-                text: "crocodile"
-            }
-            ListElement {
-                type: "bird"
-                text: "crocodile"
-            }
-            ListElement {
-                type: "bird"
-                text: "crocodile"
-            }
-            ListElement {
-                type: "bird"
-                text: "crocodile"
+                uid: "user id"
+                uname: "user name"
+                uphone: "user phone"
+                color: "#dbff6d"
             }
         }
-
-    Rectangle
-    {
-        x: first.width/3
-        y: 0
-        width: first.width/3
-        height: first.height
-        //anchors.fill: parent
+    function addElement (uid, uname, uphone)
+        {
+            dataModel.append({"uid": uid, "uname": uname, "uphone": uphone, "color": "#ffffff"})
+        }
         ListView {
             id: view
-            //anchors.margins: 10
             anchors.fill: parent
-            //spacing: 10
             model: dataModel
             clip: true
-
-            section.property: "type"
-            section.delegate: Rectangle {
-                width: first.width/3
-                height: 20
-                color: "lightgreen"
-                border {
-                    color: "black"
-                    width: 1
-                }
-
-                Text {
-                    anchors.centerIn: parent
-                    //renderType: Text.NativeRendering
-                    font.bold: true
-                    text: section
-                }
-            }
-
             delegate: Rectangle {
-                width: first.width/3
+                id:u
+                width: first.width
                 height: 20
-                border {
-                    color: "black"
-                    width: 1
+
+                Rectangle{
+                    id:u1
+                    width: first.width/3
+                    height: 20
+                    border {
+                        color: "black"
+                        width: 1
+                    }
+                    color: model.color
+                    Text {
+                        anchors.centerIn: parent
+                        //renderType: Text.NativeRendering
+                        text: model.uid
+                    }
+                }
+                Rectangle{
+                    id:u2
+                    x:first.width/3
+                    width: first.width/3
+                    height: 20
+                    border {
+                        color: "black"
+                        width: 1
+                    }
+                    color: model.color
+
+                    Text {
+                        anchors.centerIn: parent
+                        //renderType: Text.NativeRendering
+                        text: model.uname
+                    }
+                }
+                Rectangle{
+                    id:u3
+                    x:2*first.width/3
+                    width: first.width/3
+                    height: 20
+                    border {
+                        color: "black"
+                        width: 1
+                    }
+                    color: model.color
+                    Text {
+                        anchors.centerIn: parent
+                        //renderType: Text.NativeRendering
+                        text: model.uphone
+                    }
                 }
 
-                Text {
-                    anchors.centerIn: parent
-                    //renderType: Text.NativeRendering
-                    text: model.text
-                }
             }
         }
-    }
-    Rectangle
-    {
-        width: first.width/3
-        height: first.height
-        //anchors.fill: parent
-        ListView {
-            id: view2
-            //anchors.margins: 10
-            anchors.fill: parent
-            //spacing: 10
-            model: dataModel
-            clip: true
 
-            section.property: "type"
-            section.delegate: Rectangle {
-                width: first.width/3
-                height: 20
-                border {
-                    color: "black"
-                    width: 1
-                }
-
-                color: "lightgreen"
-                Text {
-                    anchors.centerIn: parent
-                    //renderType: Text.NativeRendering
-                    font.bold: true
-                    text: section
-                }
-            }
-
-            delegate: Rectangle {
-                width: first.width/3
-                height: 20
-                border {
-                    color: "black"
-                    width: 1
-                }
-
-                Text {
-                    anchors.centerIn: parent
-                    //renderType: Text.NativeRendering
-                    text: model.text
-                }
-            }
-        }
-    }
 }
